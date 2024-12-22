@@ -1,0 +1,126 @@
+/*
+The `SimpleCalculator` application is a Java-based simple calculator that only performs four basic operations that are: addition, subtraction, multiplication, and division. This is how it works: 
+
+Features
+
+1. User Input without Unrestricted Data:
+   a. Asks the user to type two numbers, `num1` and `num2`.
+   b. Checks whether the entered data is numeric using a while loop and try-catch validation to avoid programming errors. 
+
+2. Selection of Operation:
+   a. Presents a menu of four operations to the user, `+`, `-`, `*` and `/ and allows them to choose one.
+   b. Checks whether the selected number was between 1 and 4. 
+
+3. Operation of Arithmetic with Numbers:
+   a. Implements a switch-case structure depending on the the selected case by the user to determine what operation to be performed. The cases are:
+   b. In case choice == 1, Add the two numbers.
+   c. In case choice == 2, Subtract the two numbers.
+   d. In case choice == 3, Multiply the two numbers.
+   e. In case choice == 4, Divide the two numbers.
+   f. Has a check where division by zero is not allowed and an output message is shown when the second number is `0`.
+
+4. Output:
+   a. Displays the outcome of the operation in more user understandable way.
+   b. Alerts the user when the operations are finished and ready to resume the calculations.
+
+5. Error Handling:
+   a. Manipulates wrong data entry (alphabetical rather than numerical or unreasonable selections) and asks the user to give the information in a correct way without terminating the program.
+
+Key Components
+
+1. Input Validation:
+      Ensures that the program continues prompting the user until valid numeric inputs or choices are provided.
+2. Control Flow:
+      a. Loops (while) to manage input validation.
+      b. A switch statement for operation selection and execution.
+3. Division by Zero:
+      Avoids a runtime error by explicitly checking if num2 == 0.
+*/
+
+import java.util.Scanner;
+
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double num1 = 0, num2 = 0;
+        boolean validInput = false;
+
+        // Input first number
+        while (!validInput) {
+            try {
+                System.out.print("Enter the first number: ");
+                num1 = scanner.nextDouble();
+                validInput = true;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next(); // Clear invalid input
+            }
+        }
+
+        validInput = false;
+
+        // Input second number
+        while (!validInput) {
+            try {
+                System.out.print("Enter the second number: ");
+                num2 = scanner.nextDouble();
+                validInput = true;
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+                scanner.next(); // Clear invalid input
+            }
+        }
+
+        System.out.println("Choose an operation:");
+        System.out.println("1. Addition (+)");
+        System.out.println("2. Subtraction (-)");
+        System.out.println("3. Multiplication (*)");
+        System.out.println("4. Division (/)");
+        System.out.print("Enter your choice (1-4): ");
+
+        int choice = 0;
+        validInput = false;
+
+        // Input operation choice
+        while (!validInput) {
+            try {
+                choice = scanner.nextInt();
+                if (choice < 1 || choice > 4) {
+                    throw new Exception("Invalid choice");
+                }
+                validInput = true;
+            } catch (Exception e) {
+                System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                scanner.next(); // Clear invalid input
+            }
+        }
+
+        // Perform calculation
+        double result = 0;
+        switch (choice) {
+            case 1:
+                result = num1 + num2;
+                System.out.println("Result: " + num1 + " + " + num2 + " = " + result);
+                break;
+            case 2:
+                result = num1 - num2;
+                System.out.println("Result: " + num1 + " - " + num2 + " = " + result);
+                break;
+            case 3:
+                result = num1 * num2;
+                System.out.println("Result: " + num1 + " * " + num2 + " = " + result);
+                break;
+            case 4:
+                if (num2 != 0) {
+                    result = num1 / num2;
+                    System.out.println("Result: " + num1 + " / " + num2 + " = " + result);
+                } else {
+                    System.out.println("Error: Division by zero is not allowed.");
+                }
+                break;
+        }
+
+        System.out.println("Calculation completed successfully.");
+        scanner.close();
+    }
+}
